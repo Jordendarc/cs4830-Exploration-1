@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<style>
+  body {
+    text-align: center;
+  }
+</style>
+<title>Exploration 1</title>
+<body>
+<h1>Welcome to my first exploration!</h1>
+<div ng-app="myApp" ng-controller="myCtrl">
+<p>The url of this page is:</p>
+<h3>{{myUrl}}</h3>
+<p>This example uses the built-in $location service to get the absolute url of the page.</p>
+<p>I've created my own service! Enter a string:</p>
+    <form>
+        text: <input ng-change="change()" type="text" ng-model="name">
+        <button ng-click="reset()">RESET</button>
+    </form>
+    <p>char * 2 = {{count}}</p>
+  <!-- <h2>Angular Routing!</h2>
+  <p><a href="#/!">Main</a></p>
+  <a href="#!red">Red</a>
+  <a href="#!green">Green</a>
+  <a href="#!blue">Blue</a> -->
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+
+app.controller('myCtrl', ['$scope', '$location', 'jordensService', function($scope, $location, jordensService) {
+        $scope.myUrl = $location.absUrl();
+        $scope.count = 0;
+        $scope.change = function() {
+          $scope.count =jordensService.myFunc($scope.count);
+        };
+        $scope.reset = function(){
+          $scope.count = 0;
+          $scope.name = ""
+        };
+   }]);
+
+app.service('jordensService', function() {
+    this.myFunc = function (x) {
+        return x+2;
+    }
+});
+// app.config(function($routeProvider) {
+//     $routeProvider
+//     .when("/", {
+//         templateUrl : "index.html"
+//     })
+//     .when("/red", {
+//         templateUrl : "red.htm"
+//     })
+//     .when("/green", {
+//         templateUrl : "green.htm"
+//     })
+//     .when("/blue", {
+//         templateUrl : "blue.htm"
+//     });
+// });
+</script>
+
+</body>
+</html>
